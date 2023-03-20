@@ -27,12 +27,12 @@ export default function App() {
   const [step, setStep] = useState(1);
   const [toggleValue, setToggleValue] = useState(true);
   const {arcade, advanced, pro, one, two} = useToggle(toggleValue)
-  const [addedPlan, setAddedPlan] = useState([])
+  const [plan, setPlan] = useState("")
+  const [addOnArr, setAddOnArr] = useState([])
+  const [planName, setPlanName] = useState("") 
+  const [planPrice, setPlanPrice] = useState(0)
 
-  function PlanArr(e){
-    setAddedPlan((prePlan) => prePlan + e.target.id + e.target.value)
-    console.log(e.target.id + e.target.value)
-  }
+
 
   function changeToggle(){
     if (toggleValue === true){
@@ -65,19 +65,28 @@ export default function App() {
             ArcadePrice={arcade}
             AdvPrice={advanced}
             ProPrice={pro}
-            CountThis={setStep}/>}/>
+            CountThis={setStep}
+            PickPlan={setPlan}
+            PickName={setPlanName}
+            PickPrice={setPlanPrice}/>}/>
 
           <Route path="/add-ons" 
             element={<AddOns 
             CountThis={setStep}
             AddOne={one}
             AddTwo={two}
-            Summarize={() => PlanArr()}/> }/>
+            PickAddOns={setAddOnArr}/> }/>
 
           <Route path="/summary" 
           element={<Summary 
           CountThis={setStep}
-          TotalPlan={addedPlan}/>} />
+          Duration={toggleValue} 
+          PlanType={plan}
+          AddOnInfo={addOnArr}
+          ThisName={planName}
+          ThisPrice={planPrice}
+          ThisAddOns={addOnArr}
+          />} />
 
           <Route path="/thanks" element={<ThankYou CountThis={setStep}/>} />
         </Routes>

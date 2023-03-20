@@ -1,8 +1,15 @@
+import { useState } from "react"
 import { Link } from "react-router-dom"
 import './selectPlan.css'
 
 export default function SelectPlan(props){
-    const {Duration, ChangeBtn, ArcadePrice, AdvPrice, ProPrice, CountThis} = props
+    const {Duration, ChangeBtn, ArcadePrice, AdvPrice, ProPrice, CountThis, PickPlan, PickName} = props
+
+
+
+    function handleSubmitPlan(e){
+        PickName(e.target.id)
+    }
 
     return(
         <>
@@ -12,21 +19,21 @@ export default function SelectPlan(props){
         </div>
 
         <div className="plan-div">
-            <div className="pickPlan">
+            <div id="Arcade" type="button" value={ArcadePrice} onClick={(e) => handleSubmitPlan(e) } className="pickPlan">
                 <img alt="" className="arcadeIMG"/>
                 <p className="planType">Arcade</p>
                 <p className="price">${ArcadePrice}</p>
                 <p className="monthsFree">{(Duration? null: "2 months free")}</p>
             </div>
 
-            <div className="pickPlan">
+            <div id="Advanced"  type="button" value={AdvPrice} onClick={(e) => handleSubmitPlan(e) } className="pickPlan">
                 <img alt=""className="advIMG" />
                 <p className="planType">Advanced</p>
                 <p className="price">${AdvPrice}</p>
                 <p className="monthsFree">{(Duration? null: "2 months free")}</p>
             </div>
 
-            <div className="pickPlan">
+            <div id="Pro"  type="button" value={ProPrice} onClick={(e) => handleSubmitPlan(e) } className="pickPlan">
                 <img alt="" className="proIMG" />
                 <p className="planType">Pro</p>
                 <p className="price">${ProPrice}</p>

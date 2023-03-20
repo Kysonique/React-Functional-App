@@ -1,8 +1,30 @@
+import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import "./AddOn.css"
 
+
 export default function AddOns(props){
-    const {CountThis, AddOne, AddTwo, Summarize} = props
+    const {CountThis, AddOne, AddTwo, PickAddOns} = props
+
+    const [addedPlan, setAddedPlan] = useState([])
+
+
+    function PlanArr(e){  
+        setAddedPlan((prePlan) => prePlan + [e.target.id, e.target.value]);
+        console.log(addedPlan)
+    }
+
+    function handleBackBtn(){
+        setAddedPlan([]);
+        CountThis(2);
+
+    }
+    useEffect(() => {
+        PickAddOns(addedPlan)
+        console.log(addedPlan)
+
+    }, [addedPlan])
+
     return(
         <>
         <div>
@@ -11,12 +33,13 @@ export default function AddOns(props){
         </div>    
 
         <div className="add-container">
-            <div className="add-div" type="button" >
+            <div className="add-div" type="button">
                 <input className="check-btn" 
                 id="Online service"
                 value={AddOne}
-                onClick={() => Summarize()} 
-                type="checkbox"/>
+                onClick={PlanArr}
+                type="checkbox"
+                />
                 <div className="add-titles">
                     <p className="add-p1">Online service</p>
                     <p className="add-p2">Access to multiplayer games</p>
@@ -25,7 +48,12 @@ export default function AddOns(props){
             </div>
 
             <div className="add-div">
-                <input className="check-btn" type="checkbox"/>
+                <input className="check-btn" 
+                id="Larger storage"
+                value={AddTwo}
+                onClick={PlanArr}
+                type="checkbox"
+                disabled={false}/>
                 <div className="add-titles">
                     <p className="add-p1">Larger storage</p>
                     <p className="add-p2">Extra 1TB of cloud save</p>
@@ -34,7 +62,12 @@ export default function AddOns(props){
             </div>
 
             <div className="add-div">
-                <input className="check-btn" type="checkbox"/>
+                <input className="check-btn"
+                id="Customizable profile"
+                value={AddTwo}
+                onClick={PlanArr}
+                type="checkbox"
+                disabled={false}/>
                 <div className="add-titles">
                     <p className="add-p1">Customizable profile</p>
                     <p className="add-p2">Custom theme on your profile</p>
@@ -44,7 +77,7 @@ export default function AddOns(props){
         </div>
 
             <NavLink to="/plans">
-                <button onClick={() => CountThis(2)}className="prevStepBtn">Go Back</button>
+                <button onClick={() => handleBackBtn}className="prevStepBtn">Go Back</button>
             </NavLink>
 
             <NavLink to="/summary">

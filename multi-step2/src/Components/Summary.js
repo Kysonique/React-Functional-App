@@ -1,9 +1,10 @@
 import { NavLink } from "react-router-dom";
+import AddOns from "./AddOns";
 import './Summary.css'
 
 export default function Summary(props){
-    const {CountThis} = props
-    
+    const {CountThis, ThisName, ThisPrice, ThisAddOns, Duration} = props
+
     return(
         <>
             <div>
@@ -15,27 +16,29 @@ export default function Summary(props){
                 <div className="total-info">
                     <div className="individual-div">
                         <div>
-                            <p>Arcade (Monthly)</p>
+                            <p>{ThisName} ({(Duration? "Monthly" : "Yearly")})</p>
                             <NavLink to="/plans"><p id="change">Change</p></NavLink>
                         </div>
-                        <p className="price-tag">$$</p>
+                        <p className="price-tag">${ThisPrice}</p>
                     </div>
                     <hr id="hr"/>
 
                     <div className="individual-div">
-                        <p>Online service</p>
-                        <p className="price-tag">$$</p>
+                        <p>{ThisAddOns}</p>
+                        <p className="price-tag">${ThisAddOns}</p>
                     </div>
 
+                    {/* {(ThisAddOns.map((ads) =>
                     <div className="individual-div">
-                        <p>Larger storage</p>
-                        <p className="price-tag">$$</p>
-                    </div>
+                        <p>{ads.name}</p>
+                        <p className="price-tag">${ads.price}</p>
+                    </div>))} */}
+
                 </div>
 
                 <div className="individual-div">
-                    <p>Total (per month)</p>
-                    <p className="price-tag">$$</p>
+                    <p>Total (per {(Duration? "Monthly" : "Yearly")})</p>
+                    <p className="price-tag">${ThisPrice}</p>
                 </div>
             </div>
             
