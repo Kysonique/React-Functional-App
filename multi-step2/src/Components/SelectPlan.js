@@ -1,15 +1,20 @@
-import { useState } from "react"
+import { useEffect } from "react"
 import { Link } from "react-router-dom"
 import './selectPlan.css'
 
 export default function SelectPlan(props){
-    const {Duration, ChangeBtn, ArcadePrice, AdvPrice, ProPrice, CountThis, PickPlan, PickName} = props
-
+    const {Duration, ChangeBtn, ArcadePrice, AdvPrice, ProPrice, CountThis, PickPrice, PickName, ThisPrice} = props
 
 
     function handleSubmitPlan(e){
-        PickName(e.target.id)
+        e.stopPropagation();
+        PickName(e.target.id);
+        PickPrice(e.target.value);
     }
+
+    useEffect(() =>{
+        console.log(ThisPrice)
+    }, [ThisPrice])
 
     return(
         <>
@@ -19,26 +24,26 @@ export default function SelectPlan(props){
         </div>
 
         <div className="plan-div">
-            <div id="Arcade" type="button" value={ArcadePrice} onClick={(e) => handleSubmitPlan(e) } className="pickPlan">
+            <button id="Arcade" type="button" value={ArcadePrice} onClick={(e) => handleSubmitPlan(e) } className="pickPlan">
                 <img alt="" className="arcadeIMG"/>
-                <p className="planType">Arcade</p>
-                <p className="price">${ArcadePrice}</p>
-                <p className="monthsFree">{(Duration? null: "2 months free")}</p>
-            </div>
+                <p className="planType" >Arcade</p>
+                <p className="price" >${ArcadePrice}</p>
+                <p className="monthsFree" >{(Duration? null: "2 months free")}</p>
+            </button>
 
-            <div id="Advanced"  type="button" value={AdvPrice} onClick={(e) => handleSubmitPlan(e) } className="pickPlan">
+            <button id="Advanced"  type="button" value={AdvPrice} onClick={(e) => handleSubmitPlan(e) } className="pickPlan">
                 <img alt=""className="advIMG" />
                 <p className="planType">Advanced</p>
                 <p className="price">${AdvPrice}</p>
                 <p className="monthsFree">{(Duration? null: "2 months free")}</p>
-            </div>
+            </button>
 
-            <div id="Pro"  type="button" value={ProPrice} onClick={(e) => handleSubmitPlan(e) } className="pickPlan">
+            <button id="Pro"  type="button" value={ProPrice} onClick={(e) => handleSubmitPlan(e) } className="pickPlan">
                 <img alt="" className="proIMG" />
                 <p className="planType">Pro</p>
                 <p className="price">${ProPrice}</p>
                 <p className="monthsFree">{(Duration? null: "2 months free")}</p>
-            </div>
+            </button>
         </div>
         <button type="button" onClick={() => ChangeBtn()} className="toggle-btn">Monthly, Yearly</button>
 

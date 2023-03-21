@@ -14,6 +14,7 @@
 .plan-div{
     display: flex;
     flex-direction: row;
+    justify-content: flex-start;
 }
 .pickPlan{
     width: 138px;
@@ -25,6 +26,11 @@
     border-top-left-radius: 8px;
     margin-right: 18px;
     line-height: 1;
+    align-items: start;
+}
+.pickPlan:focus, .pickPlan:active, .pickPlan:hover{
+    background-color: #F8F9FF;
+    border-color: #483EFF;
 }
 .arcadeIMG{
     background-image: url('./assets/arcade.svg');
@@ -43,12 +49,9 @@
     height: 40px;
     border-radius: 75%;
     margin-top: 20px;
-    margin-left: 16px;
     margin-bottom: 39px;
 }
-.planType, .price, .monthsFree{
-    margin-left: 16px;
-}
+
 .planType{
     font-weight: 500;
     font-size: 16px;

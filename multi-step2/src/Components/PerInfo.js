@@ -2,21 +2,27 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function UserInfo(props){
-    const {ThisStep, CountThis} = props
+    const {CountThis, PageReload} = props
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState(0);
 
     function handleName(e){
         setName(e.target.value)
+        console.log(name)
+        PageReload(false)
     }
 
     function handleEmail(e){
         setEmail(e.target.value)
+        console.log(email)
+
     }
 
     function handlePhone(e){
         setPhone(e.target.value)
+        console.log(phone)
+
     }
     return(
      <>

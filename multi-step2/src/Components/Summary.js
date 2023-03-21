@@ -3,7 +3,8 @@ import AddOns from "./AddOns";
 import './Summary.css'
 
 export default function Summary(props){
-    const {CountThis, ThisName, ThisPrice, ThisAddOns, Duration} = props
+    const {CountThis, ThisName, ThisPrice, ThisAddOns, Duration, ThisAddValue} = props
+
 
     return(
         <>
@@ -19,13 +20,13 @@ export default function Summary(props){
                             <p>{ThisName} ({(Duration? "Monthly" : "Yearly")})</p>
                             <NavLink to="/plans"><p id="change">Change</p></NavLink>
                         </div>
-                        <p className="price-tag">${ThisPrice}</p>
+                        <p className="price-tag">${() => ThisPrice}</p>
                     </div>
                     <hr id="hr"/>
 
                     <div className="individual-div">
                         <p>{ThisAddOns}</p>
-                        <p className="price-tag">${ThisAddOns}</p>
+                        <p className="price-tag">${ThisAddValue}</p>
                     </div>
 
                     {/* {(ThisAddOns.map((ads) =>
@@ -38,7 +39,7 @@ export default function Summary(props){
 
                 <div className="individual-div">
                     <p>Total (per {(Duration? "Monthly" : "Yearly")})</p>
-                    <p className="price-tag">${ThisPrice}</p>
+                    <p className="price-tag">$</p>
                 </div>
             </div>
             

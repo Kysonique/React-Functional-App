@@ -4,14 +4,16 @@ import "./AddOn.css"
 
 
 export default function AddOns(props){
-    const {CountThis, AddOne, AddTwo, PickAddOns} = props
+    const {CountThis, AddOne, AddTwo, PickAddOns, PickAddPrice} = props
 
     const [addedPlan, setAddedPlan] = useState([])
+    const [addPricing, setAddPricing] = useState([])
 
 
     function PlanArr(e){  
-        setAddedPlan((prePlan) => prePlan + [e.target.id, e.target.value]);
-        console.log(addedPlan)
+        setAddedPlan((prePlan) => prePlan + [e.target.id]);
+        setAddPricing((prevPrice) => prevPrice + [e.target.value])
+        console.log(addedPlan, addPricing)
     }
 
     function handleBackBtn(){
@@ -21,8 +23,8 @@ export default function AddOns(props){
     }
     useEffect(() => {
         PickAddOns(addedPlan)
-        console.log(addedPlan)
-
+        PickAddPrice(addPricing)
+        console.log(addPricing + addedPlan)
     }, [addedPlan])
 
     return(

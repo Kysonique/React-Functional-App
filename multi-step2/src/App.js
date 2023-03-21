@@ -1,12 +1,12 @@
 import './App.css';
-import {Route, Routes} from 'react-router-dom'
+import {Route, Routes, useNavigate} from 'react-router-dom'
 import UserInfo from './Components/PerInfo';
 import AddOns from './Components/AddOns';
 import SelectPlan from './Components/SelectPlan'
 import Summary from './Components/Summary'
 import NavBar from './Components/NavBar';
 import ThankYou from './Components/ThankYou';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useToggle } from './Hooks/useToggle';
 
 
@@ -27,12 +27,13 @@ export default function App() {
   const [step, setStep] = useState(1);
   const [toggleValue, setToggleValue] = useState(true);
   const {arcade, advanced, pro, one, two} = useToggle(toggleValue)
-  const [plan, setPlan] = useState("")
-  const [addOnArr, setAddOnArr] = useState([])
+  // const [plan, setPlan] = useState("")
+  const [addOnIdArr, setAddOnIdArr] = useState([])
+  const [addOnValArr, setAddOnValdArr] = useState([])
   const [planName, setPlanName] = useState("") 
   const [planPrice, setPlanPrice] = useState(0)
-
-
+  const [reFresh, setReFresh] = useState(true)
+  
 
   function changeToggle(){
     if (toggleValue === true){
@@ -45,6 +46,10 @@ export default function App() {
     }
   }
 
+  useEffect(() => {
+    console.log(reFresh)
+  },[reFresh])
+
   return (
     <div className='app-container'>
 
@@ -56,7 +61,8 @@ export default function App() {
         <Routes>
           <Route path="/" 
             element={<UserInfo 
-            CountThis={setStep}/>}/>
+            CountThis={setStep}
+            PageReload={setReFresh}/>}/>
 
           <Route path="/plans" 
             element={<SelectPlan  
@@ -66,26 +72,27 @@ export default function App() {
             AdvPrice={advanced}
             ProPrice={pro}
             CountThis={setStep}
-            PickPlan={setPlan}
+            
             PickName={setPlanName}
-            PickPrice={setPlanPrice}/>}/>
+            PickPrice={setPlanPrice}
+            ThisPrice={planPrice}/>}/>
 
           <Route path="/add-ons" 
             element={<AddOns 
             CountThis={setStep}
             AddOne={one}
             AddTwo={two}
-            PickAddOns={setAddOnArr}/> }/>
+            PickAddOns={setAddOnIdArr}
+            PickAddPrice={setAddOnValdArr}/> }/>
 
           <Route path="/summary" 
           element={<Summary 
           CountThis={setStep}
           Duration={toggleValue} 
-          PlanType={plan}
-          AddOnInfo={addOnArr}
           ThisName={planName}
           ThisPrice={planPrice}
-          ThisAddOns={addOnArr}
+          ThisAddOns={addOnIdArr}
+          ThisAddValue={addOnValArr}
           />} />
 
           <Route path="/thanks" element={<ThankYou CountThis={setStep}/>} />
